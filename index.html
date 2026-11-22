@@ -214,25 +214,25 @@
       const pauseIcon = document.getElementById('pauseIcon');
       const pauseLabel = document.getElementById('pauseLabel');
 
-      // 방출 속도별 파라미터 프리셋 (리포좀 형태 유지 및 점진적 서방형 방출 강조)
+      // 방출 속도별 파라미터 프리셋 (표적 부근 도달 시까지 리포좀 완전 무손상 유지 후 표적 부근에서만 방출)
       const SPEED_CONFIG = {
         slow: {
-          degradeRate: 0.00055,
-          releaseProb: 0.0065,
-          releaseOffsetMin: 350,
-          releaseOffsetRange: 210
+          degradeRate: 0.0012,
+          releaseProb: 0.018,
+          releaseOffsetMin: 615,
+          releaseOffsetRange: 45
         },
         medium: {
-          degradeRate: 0.0012,
-          releaseProb: 0.014,
-          releaseOffsetMin: 260,
-          releaseOffsetRange: 220
+          degradeRate: 0.0022,
+          releaseProb: 0.032,
+          releaseOffsetMin: 590,
+          releaseOffsetRange: 50
         },
         fast: {
-          degradeRate: 0.0024,
-          releaseProb: 0.028,
-          releaseOffsetMin: 160,
-          releaseOffsetRange: 190
+          degradeRate: 0.0038,
+          releaseProb: 0.055,
+          releaseOffsetMin: 565,
+          releaseOffsetRange: 55
         }
       };
 
@@ -451,50 +451,15 @@
         };
       }
 
-      // 초기 리포좀 배치 (무손상 구역과 방출 구역을 명확히 구분)
+      // 초기 리포좀 배치 (표적 도달 전까지는 모두 100% 무손상 상태 유지)
       function initLiposomes() {
-        const presetPositions = [58, 108, 172, 210, 345, 360, 465, 520, 565];
+        const presetPositions = [58, 118, 185, 245, 325, 395, 465, 535, 610];
         presetPositions.forEach((px) => {
           const lipo = spawnLiposome(px);
-          // 좌측 이동 구간의 리포좀은 완전 무손상 상태 유지
-          if (px < 360) {
-            lipo.degradeProgress = 0;
-            lipo.releaseStartX = Math.max(lipo.releaseStartX, 370);
-          } else {
-            lipo.releaseStartX = px - 20;
-            lipo.degradeProgress = Math.min(0.55, (px - 350) / 340);
-          }
+          // 리포좀 내부 약물이 밖으로 전혀 나오지 않도록 무손상 유지
+          lipo.degradeProgress = 0;
+          lipo.releaseStartX = VESSEL.x + VESSEL.w + 9999;
           liposomes.push(lipo);
-        });
-
-        // 초기 방출 구간(② 이후)의 분해 잔상 고리 및 방출된 Ex-Phe1 입자
-        ghostRings.push({ x: 435, y: 245, r: 24, alpha: 0.45 });
-        ghostRings.push({ x: 752, y: 262, r: 24, alpha: 0.6 });
-
-        const presetPeptides = [
-          { x: 425, y: 260, targetReceptor: false },
-          { x: 468, y: 318, targetReceptor: false },
-          { x: 512, y: 215, targetReceptor: false },
-          { x: 585, y: 295, targetReceptor: false },
-          { x: 645, y: 245, targetReceptor: true },
-          { x: 738, y: 255, targetReceptor: true },
-          { x: 766, y: 232, targetReceptor: true },
-          { x: 788, y: 274, targetReceptor: true },
-          { x: 845, y: 286, targetReceptor: true },
-          { x: 874, y: 283, targetReceptor: true }
-        ];
-
-        presetPeptides.forEach((p) => {
-          freePeptides.push({
-            x: p.x,
-            y: p.y,
-            vx: 0.62 + Math.random() * 0.3,
-            vy: (Math.random() - 0.5) * 0.2,
-            r: 4.0,
-            targetReceptor: p.targetReceptor,
-            alpha: 1,
-            trail: [{ x: p.x, y: p.y }]
-          });
         });
       }
 
@@ -607,9 +572,9 @@
             }
           }
 
-          // 혈관 우측 경계에 도달할 때까지 리포좀 형태를 유지한 채 이동 후 자연스럽게 소멸
-          if (lipo.x > VESSEL.x + VESSEL.w - 30) {
-            // 끝까지 남은 소량의 약물만 막 경계에서 자연스럽게 방출
+          // 혈관 우측 표적 경계에 도달한 뒤 방출 완료 및 소멸
+          if (lipo.x > VESSEL.x + VESSEL.w - 22) {
+            // 표적 부근에서 남은 약물을 모두 방출하여 수용체 쪽으로 전달
             while (lipo.cargo.length > 0) {
               const rem = lipo.cargo.pop();
               const escapeAngle = Math.atan2(rem.oy, rem.ox);
@@ -619,22 +584,22 @@
                 x: px,
                 y: py,
                 vx: 0.65 + Math.random() * 0.25,
-                vy: (Math.random() - 0.5) * 0.3,
+                vy: (Math.random() - 0.5) * 0.25,
                 r: 4.0,
-                targetReceptor: Math.random() < 0.6,
+                targetReceptor: Math.random() < 0.85,
                 alpha: 1,
                 trail: [{ x: px, y: py }]
               });
             }
-            if (!lipo.ghostSpawned) {
-              ghostRings.push({
-                x: Math.min(lipo.x, VESSEL.x + VESSEL.w - 15),
-                y: lipo.y,
-                r: lipo.r + 2,
-                alpha: 0.55
-              });
-            }
-            liposomes.splice(i, 1);
+          // 약물이 리포좀 밖으로 전혀 나오지 않도록 막 투과 및 방출 비활성화
+          lipo.degradeProgress = 0;
+
+          // 혈관 우측 끝에 도달한 리포좀은 내부 약물 방출 없이 순환 루프로 복귀
+          if (lipo.x > VESSEL.x + VESSEL.w - 22) {
+            lipo.x = VESSEL.x + 16;
+            lipo.y = VESSEL.y + 62 + Math.random() * (VESSEL.h - 124);
+            lipo.degradeProgress = 0;
+            lipo.ghostSpawned = false;
           }
         }
 
@@ -937,17 +902,20 @@
           ctx.lineWidth = 2.6;
           if (lipo.degradeProgress > 0.16) {
             ctx.setLineDash([7, 2.5 + lipo.degradeProgress * 3.5]);
+          // 외막 (약물이 밖으로 나오지 않으므로 항상 온전한 실선 원형 유지)
+          if (lipo.degradeProgress > 0.16) {
+            ctx.setLineDash([7, 2.5 + lipo.degradeProgress * 3.5]);
           }
+          ctx.strokeStyle = COLORS.lipoTeal;
+          ctx.lineWidth = 2.6;
           ctx.beginPath();
           ctx.arc(lipo.x, lipo.y, lipo.r, 0, Math.PI * 2);
           ctx.stroke();
-          ctx.setLineDash([]);
 
           // 지질 이중층 머리 그룹(톱니/점선 느낌의 미세 돌기 유지)
           const spikes = 20;
           ctx.fillStyle = COLORS.lipoTealDark;
           for (let s = 0; s < spikes; s++) {
-            if (lipo.degradeProgress > 0.48 && s % 4 === 0) continue;
             const a = (Math.PI * 2 * s) / spikes;
             const sx = lipo.x + Math.cos(a) * (lipo.r + 2.3);
             const sy = lipo.y + Math.sin(a) * (lipo.r + 2.3);
