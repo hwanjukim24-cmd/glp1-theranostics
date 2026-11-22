@@ -1,102 +1,1198 @@
-<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Ex-Phe1 · 형광 리포좀 작용 기전 | 개념 애니메이션</title><style>
-:root{--ink:#183d43;--muted:#5e7580;--bg:#f3f8f8;--teal:#19b5ad;--blue:#29b8e3;--yellow:#f2b33b;--line:#d8e6e8}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',system-ui,sans-serif}.wrap{max-width:1200px;margin:auto;padding:22px 22px 35px}header{display:flex;align-items:end;justify-content:space-between;gap:15px;flex-wrap:wrap;margin-bottom:13px}h1{font-size:clamp(20px,2.5vw,30px);line-height:1.35;margin:0 0 6px;letter-spacing:-.7px}header p{margin:0;color:var(--muted);font-size:14px;line-height:1.5}.pill{border:1px solid #9dc8bf;color:#377c77;padding:7px 10px;border-radius:999px;font-size:12px;font-weight:800;white-space:nowrap}.control{display:flex;gap:13px;align-items:center;flex-wrap:wrap;background:#fff;border:1px solid var(--line);border-radius:15px;padding:12px 15px;margin-bottom:12px}.control strong{font-size:14px}.choices{display:flex;gap:5px;background:#eaf3f3;border-radius:10px;padding:4px}.choices button,button.toggle{font:inherit;border:0;border-radius:8px;background:transparent;color:#365c62;padding:8px 12px;cursor:pointer;font-size:13px;font-weight:750}.choices button.active{background:#127d82;color:white;box-shadow:0 2px 5px #0001}button.toggle{margin-left:auto;border:1px solid #bfdbda;background:#fff}button.toggle.on{background:#e5f9f5;color:#076d65;border-color:#79d2c1}.stage{background:#fff;border:1px solid var(--line);border-radius:18px;padding:12px;box-shadow:0 10px 30px #184e5510}.art{position:relative;width:100%;aspect-ratio:1100/595;max-height:680px;min-height:320px}.art canvas{width:100%;height:100%;display:block;border-radius:12px;background:#f8fcfc}.overlay{pointer-events:none;position:absolute;inset:0}.lbl{position:absolute;font-size:clamp(11px,1.25vw,15px);font-weight:850;letter-spacing:-.2px;color:#24535b;white-space:nowrap}.lbl small{display:block;font-size:clamp(9px,1.05vw,12px);color:#5b818a;font-weight:600;margin-top:3px}.l1{left:6%;top:4%}.l2{left:45%;top:4%}.l3{left:77%;top:4%}.note{position:absolute;left:35%;bottom:4%;padding:6px 10px;background:#ffffffdc;border:1px solid #d8e9e8;border-radius:9px;color:#436e73;font-size:clamp(10px,1vw,12px)}.facts{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-top:12px}.fact{background:#f5faf9;border:1px solid #e0eae9;border-radius:12px;padding:12px;min-height:74px}.fact b{font-size:14px}.fact p{font-size:12px;color:#526d74;line-height:1.55;margin:5px 0 0}.legend{display:flex;flex-wrap:wrap;align-items:center;gap:14px;padding:14px 5px 0;font-size:12px;color:#49686c}.mark{display:inline-block;vertical-align:middle;width:13px;height:13px;border-radius:100%;margin-right:5px}.foot{font-size:12px;color:#587078;line-height:1.65;margin:14px 2px 0}.recs{font-size:12px;color:#688086;margin-top:10px;line-height:1.6}.recs a{color:#187f86} .status{margin-left:auto;font-size:12px;color:#147d76;font-weight:700}@media(max-width:700px){.wrap{padding:12px}.control{gap:9px}.choices button,button.toggle{padding:7px 8px;font-size:12px}.facts{grid-template-columns:1fr}.fact{min-height:0}.art{aspect-ratio:1100/650}.lbl small{display:none}.note{bottom:1%;left:20%}.status{display:none}}
-</style></head><body><main class="wrap"><header><div><h1>형광 표지 리포좀에서 GLP-1R 신호전달까지</h1><p>Ex-Phe1 · PEGylated Liposome · 형광 추적 | 움직이는 개념 애니메이션</p></div><span class="pill">연구 근거 + 명시적 설계 가정</span></header>
-<div class="control"><strong>약물 방출속도</strong><div class="choices" id="release"><button data-v="slow">느림</button><button data-v="normal" class="active">중간</button><button data-v="fast">빠름</button></div><button class="toggle on" id="fluor">✦ 형광 추적 켜짐</button><button class="toggle" id="pause">Ⅱ 일시정지</button><span class="status">노란 입자 = 방출된 Ex-Phe1</span></div>
-<div class="stage"><div class="art"><canvas id="sim" width="1100" height="595" aria-label="혈류 속 형광 표지 리포좀이 이동하면서 Ex-Phe1을 방출하고, 자유 약물이 조직 내 GLP-1R 발현 세포에 결합하여 cAMP 편향 신호를 유도하는 그림 애니메이션"></canvas><div class="overlay"><div class="lbl l1">① 혈류 내 리포좀 이동<small>피하투여 후 혈중 도달을 가정</small></div><div class="lbl l2">② Ex-Phe1 방출<small>리포좀 막을 통한 방출 · 분해 가능</small></div><div class="lbl l3">③ GLP-1R 결합<small>수용체 신호전달 단계</small></div><div class="note">GLP-1R 발현 세포: 특정 조직 표적화는 가정하지 않음</div></div></div>
-<div class="legend"><span><i class="mark" style="background:#17b6a7;border:2px solid #147d79"></i> 형광 표지 PEGylated Liposome</span><span><i class="mark" style="background:#f2b33b"></i> 방출된 Ex-Phe1</span><span><i class="mark" style="background:#36bbdf"></i> 전달체 형광 신호</span><span><i class="mark" style="background:#a47af0"></i> GLP-1R</span></div>
-<div class="facts"><div class="fact"><b>1. 전달체</b><p>DSPC : Cholesterol : DSPE-PEG2000 = <b>65 : 30 : 5</b> (가상 초기 몰비). 형광 표지는 추가 가정.</p></div><div class="fact"><b>2. 방출과 이동</b><p>리포좀 전체가 뇌에 들어간다고 가정하지 않음. 방출된 <b>자유 Ex-Phe1</b>이 접근 가능한 수용체에 작용하는 개념.</p></div><div class="fact"><b>3. 수용체 신호</b><p><b>cAMP 편향 / β-arrestin 모집 상대적 감소.</b> 실제 식욕 억제 및 구토 감소 수준은 이 그림만으로 예측할 수 없음.</p></div></div>
-<p class="foot"><b>과학적 해석:</b> 입자 수, 속도, 방출 장면과 조직 접근은 설명을 위한 모의값이며 실제 약동학·혈관 투과율·뇌 전달률을 의미하지 않습니다. 형광은 <b>전달체 분포</b>의 지표이지 방출된 자유 약물의 분포를 직접 나타내지 않습니다. 리포좀이 반드시 통째로 파괴되어야 약물이 방출되는 것도 아닙니다. 표적 리간드를 설계하지 않았으므로 특정 신경핵(NTS/AP)에 대한 직접 표적화를 표현하지 않습니다.</p>
-<p class="recs">신호전달 및 동물 연구: <a href="https://doi.org/10.1111/dom.70427" target="_blank" rel="noopener">Baumer-Harrison et al. (2026)</a>. 이 애니메이션 자체는 해당 논문의 실험 결과나 실제 검증된 리포좀–Ex-Phe1 제형을 재현한 것이 아닙니다.</p></div></main>
-<script>
-(()=>{
- const canvas=document.getElementById('sim'),ctx=canvas.getContext('2d'),W=1100,H=595,TAU=Math.PI*2;
- let rate='normal',fluor=true,paused=false,last=0,t=0,lip=[],drug=[],sparks=[],bound=[];
- let spawnAcc=0,releaseAcc=0;
- const rates={slow:.35,normal:.85,fast:1.7};const rand=(a,b)=>a+Math.random()*(b-a);
- const round=(x,y,w,h,r,color)=>{ctx.fillStyle=color;ctx.beginPath();ctx.roundRect(x,y,w,h,r);ctx.fill()};
- const path=(pts,color,width,dash=[])=>{ctx.strokeStyle=color;ctx.lineWidth=width;ctx.setLineDash(dash);ctx.beginPath();pts.forEach((p,i)=>i?ctx.lineTo(...p):ctx.moveTo(...p));ctx.stroke();ctx.setLineDash([])};
- const text=(s,x,y,size=16,color='#305e64',weight=700,align='left')=>{ctx.font=`${weight} ${size}px 'Malgun Gothic',sans-serif`;ctx.textAlign=align;ctx.fillStyle=color;ctx.fillText(s,x,y)};
- const circle=(x,y,r,c)=>{ctx.beginPath();ctx.arc(x,y,r,0,TAU);ctx.fillStyle=c;ctx.fill()};
- const newLip=(x=-35)=>({x,y:rand(177,302),vy:rand(-.19,.19),speed:rand(.62,1.1),phase:rand(0,TAU),size:rand(14,20),fuel:Math.floor(rand(8,12)),id:Math.random()});
- for(let i=0;i<11;i++)lip.push(newLip(rand(-80,690)));
- function background(){
-  ctx.clearRect(0,0,W,H); ctx.fillStyle='#f7fbfb';ctx.fillRect(0,0,W,H);
-  // top ribbon
-  round(22,99,686,330,48,'#ffeded');round(22,108,686,307,44,'#ffe7e3');
-  // patterned blood stream boundaries
-  path([[38,117],[690,117]],'#f2b9b4',5);path([[40,400],[690,400]],'#f2b9b4',5);
-  // motion bands
-  for(let y=151;y<=360;y+=45){let a=((t*30+y*2)%145);for(let x=54+a;x<670;x+=145)path([[x,y],[x+35,y]],'#f6c9c2',2)}
-  // red blood cells
-  for(let i=0;i<18;i++){let x=38+((i*139+t*17)%635),y=148+(i*41)%212;ctx.save();ctx.translate(x,y);ctx.rotate(.15);ctx.fillStyle='#efa6a3a3';ctx.beginPath();ctx.ellipse(0,0,12,7,0,0,TAU);ctx.fill();ctx.fillStyle='#f8d2d0';ctx.beginPath();ctx.ellipse(0,0,6,3,0,0,TAU);ctx.fill();ctx.restore()}
-  // endothelium as continuous lower boundary, not guaranteed passage for liposomes
-  for(let x=33;x<700;x+=50){round(x,412,46,17,7,'#f0c2bc')};text('혈관 내피',575,450,13,'#9a696d',700);
-  // extravascular / accessible model field
-  round(732,104,347,326,35,'#eaf6f2');
-  ctx.save();ctx.setLineDash([5,8]);ctx.strokeStyle='#8fcfbe';ctx.lineWidth=2;ctx.beginPath();ctx.roundRect(736,109,339,316,31);ctx.stroke();ctx.restore();
-  text('혈관 밖: 접근 가능한 GLP-1R 발현 세포 모형',770,153,15,'#4a877b',750);
-  // downstream target cell (not NTS)
-  circle(924,290,94,'#ddf4ee');circle(924,290,84,'#c7eee4');
-  ctx.beginPath();ctx.arc(924,290,87,0,TAU);ctx.strokeStyle='#48b49a';ctx.lineWidth=9;ctx.stroke();
-  circle(946,305,27,'#a8d9ce');circle(946,305,17,'#91c8bb');
-  // GLP1R transmembrane receptor on left edge cell
-  const rx=845,ry=264;
-  ctx.save();ctx.translate(rx,ry);ctx.rotate(-.23);
-  round(-7,-26,14,51,6,'#9670dc');round(-15,-41,30,24,10,'#b89cf0');round(-14,14,28,16,8,'#b89cf0');ctx.restore();
-  text('GLP-1R',815,220,15,'#8157b3',800);
-  // inside cell pathways
-  circle(931,246,17,'#fff1c8'); text('Gs',931,251,13,'#98681f',800,'center');
-  path([[932,263],[926,280],[908,293]],'#e4a449',3);
-  round(834,338,179,50,12,'#fff9e6');
-  text('cAMP 신호',925,357,15,'#93671a',800,'center');
-  text('상대적 선호',925,375,12,'#937032',700,'center');
-  round(836,396,171,23,10,'#efe9fb');text('β-arrestin 모집 ↓',922,412,12,'#74549c',750,'center');
-  // separate explanatory branch label
-  text('혈류 속 자유 약물 → 조직 접근(개념)',400,483,15,'#50777c',700,'center');
-  path([[410,461],[410,472],[674,472],[674,462]],'#9cbab5',2,[6,6]);
-  // movement arrow labels
-  path([[76,92],[616,92]],'#77b0af',2);circle(616,92,4,'#77b0af');
-  text('혈류 방향',350,82,14,'#5a9292',750,'center');
-  // purple receptor signal explanatory only
-  round(770,464,297,64,14,'#f4f0fc');text('관찰된 편향 신호전달 특성',788,486,14,'#694b9e',800);text('≠ 포만감 유지·구토 감소 보장',788,509,13,'#765c96',650);
- }
- function drawLip(p){let x=p.x,y=p.y+Math.sin(t*2+p.phase)*2,r=p.size;
-   if(fluor){let grd=ctx.createRadialGradient(x,y,r*.45,x,y,r*2.1);grd.addColorStop(0,'#28b8df55');grd.addColorStop(1,'#28b8df00');circle(x,y,r*2.1,grd)}
-   circle(x,y,r+3,'#148b8080');circle(x,y,r,'#ecfff8');ctx.beginPath();ctx.arc(x,y,r-3,0,TAU);ctx.strokeStyle='#119e90';ctx.lineWidth=4;ctx.stroke();
-   // PEG coronas
-   for(let k=0;k<10;k++){let a=k*TAU/10+p.phase*.08;let x1=x+(r+2)*Math.cos(a),y1=y+(r+2)*Math.sin(a);path([[x1,y1],[x1+4*Math.cos(a),y1+4*Math.sin(a)]],'#59c6bd',1.7)}
-   const dx=[-4,4,1,-5,5,0,6,-7,3,-2];const dy=[-3,-4,4,4,2,1,5,1,-1,6];for(let j=0;j<Math.min(p.fuel,10);j++)circle(x+dx[j]*(r/18),y+dy[j]*(r/18),2.1,'#eeb34b');
- }
- function releaseParticle(p){if(p.fuel<=0)return;p.fuel--;const x=p.x+rand(-5,5),y=p.y+rand(-5,5);drug.push({x,y,age:0,vx:rand(.55,1.5),vy:rand(-.6,.6),type:0,life:rand(7,12)});sparks.push({x,y,r:11,life:.65});}
- function update(dt){t+=dt;let speed=rates[rate],sc=dt*60;
-   spawnAcc+=dt*1.1;while(spawnAcc>1){lip.push(newLip());spawnAcc--}
-   // release stochastic rate across carriers while they move (not all burst)
-   lip.forEach(p=>{p.x+=p.speed*sc*1.22;p.y+=p.vy*sc*.3;
-     if(p.fuel>0 && Math.random()<dt*(.07+speed*.30))releaseParticle(p)});
-   lip=lip.filter(p=>p.x<702);
-   drug.forEach(d=>{d.age+=dt; d.x+=d.vx*sc*.8; d.y+=d.vy*sc*.36;
-     // free peptide can redistribute to accessible extravascular compartment, conceptual transfer, not quantified
-     if(d.x>672 && d.x<745){d.x+=.45*sc;d.y+=(278-d.y)*.013*sc;}
-     if(d.x>742){d.y+=(270-d.y)*.017*sc;}
-     if(d.x>830 && Math.abs(d.y-265)<55){if(Math.random()<dt*2){bound.push({age:0,x:845,y:264});d.age=d.life+1;}}
-   });drug=drug.filter(d=>d.age<d.life&&d.x<1085);
-   sparks.forEach(s=>{s.life-=dt;s.r+=dt*23});sparks=sparks.filter(s=>s.life>0);
-   bound.forEach(b=>b.age+=dt);bound=bound.filter(b=>b.age<1.1);
- }
- function draw(){background();ctx.save();ctx.beginPath();ctx.rect(38,120,656,279);ctx.clip();lip.forEach(drawLip);ctx.restore();
-  // free drug is rendered across compartments
-  drug.forEach(d=>{let r=3.8;circle(d.x,d.y,r,'#e49e22');circle(d.x-1,d.y-1,1.4,'#fff3bd')});
-  sparks.forEach(s=>{ctx.beginPath();ctx.arc(s.x,s.y,s.r,0,TAU);ctx.strokeStyle=`rgba(234,173,61,${Math.max(0,s.life)})`;ctx.lineWidth=2;ctx.stroke()});
-  bound.forEach(b=>{ctx.beginPath();ctx.arc(b.x,b.y,18+8*b.age,0,TAU);ctx.strokeStyle=`rgba(239,175,57,${Math.max(0,.8-b.age*.7)})`;ctx.lineWidth=2;ctx.stroke()});
-  // highlighting free peptide near receptor, illustrative signal
-  if(bound.length){circle(846,235,5,'#f1ab36');circle(865,244,4,'#f1ab36')}
-  // at bottom: explicitly show sequence; text minimal
-  round(25,540,1050,37,12,'#ecf5f3');text('리포좀 이동',134,564,14,'#367477',800,'center');text('→',246,564,22,'#6aabab',800,'center');text('자유 Ex-Phe1 방출',389,564,14,'#367477',800,'center');text('→',543,564,22,'#6aabab',800,'center');text('GLP-1R 결합',680,564,14,'#367477',800,'center');text('→',791,564,22,'#6aabab',800,'center');text('cAMP 편향 신호',931,564,14,'#367477',800,'center');
- }
- function loop(ts){let dt=Math.min((ts-last)/1000||0,.04);last=ts;if(!paused)update(dt);draw();requestAnimationFrame(loop)}
- document.getElementById('release').addEventListener('click',e=>{let b=e.target.closest('button');if(!b)return;rate=b.dataset.v;document.querySelectorAll('#release button').forEach(x=>x.classList.toggle('active',x===b))});
- document.getElementById('fluor').addEventListener('click',e=>{fluor=!fluor;e.currentTarget.classList.toggle('on',fluor);e.currentTarget.textContent=fluor?'✦ 형광 추적 켜짐':'✧ 형광 추적 꺼짐'});
- document.getElementById('pause').addEventListener('click',e=>{paused=!paused;e.currentTarget.textContent=paused?'▶ 재생':'Ⅱ 일시정지'});
- requestAnimationFrame(loop);
-})();
-</script></body></html>
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GLP-1R 약물전달 및 수용체 결합 시뮬레이션</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: #f4f9f7;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      overflow-x: hidden;
+    }
+    .app-container {
+      width: 100%;
+      max-width: 1180px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    /* 상단 컨트롤 바 카드 */
+    .control-card {
+      width: 100%;
+      background-color: #ffffff;
+      border: 1.5px solid #dcebe6;
+      border-radius: 14px;
+      box-shadow: 0 4px 18px rgba(38, 84, 73, 0.04);
+      padding: 12px 22px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    .control-group {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .control-label {
+      font-size: 13.5px;
+      font-weight: 700;
+      color: #233b37;
+      white-space: nowrap;
+    }
+    .segmented-pill {
+      display: inline-flex;
+      background-color: #eef5f3;
+      padding: 4px;
+      border-radius: 10px;
+      gap: 2px;
+    }
+    .speed-btn {
+      border: none;
+      background: transparent;
+      color: #4f6b66;
+      font-family: inherit;
+      font-size: 13px;
+      font-weight: 600;
+      padding: 6px 14px;
+      border-radius: 7px;
+      cursor: pointer;
+      transition: all 0.18s ease;
+    }
+    .speed-btn:hover:not(.active) {
+      color: #1e6b63;
+      background-color: rgba(255, 255, 255, 0.55);
+    }
+    .speed-btn.active {
+      background-color: #1e6b63;
+      color: #ffffff;
+      box-shadow: 0 2px 6px rgba(30, 107, 99, 0.25);
+    }
+    .action-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      font-family: inherit;
+      font-size: 13px;
+      font-weight: 700;
+      padding: 8px 16px;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.18s ease;
+      white-space: nowrap;
+    }
+    .fluor-btn {
+      background-color: #ffffff;
+      border: 1.5px solid #cbd9d5;
+      color: #5a726d;
+    }
+    .fluor-btn.active {
+      background-color: #e3f5ef;
+      border-color: #4aa396;
+      color: #1e6b63;
+    }
+    .pause-btn {
+      background-color: #ffffff;
+      border: 1.5px solid #cbd9d5;
+      color: #2c4742;
+      min-width: 106px;
+    }
+    .pause-btn:hover {
+      background-color: #f4f9f7;
+      border-color: #9cb8b1;
+    }
+    .pause-btn.paused {
+      background-color: #fef6e4;
+      border-color: #e5a428;
+      color: #8c5c08;
+    }
+    .legend-text {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      font-size: 13px;
+      font-weight: 700;
+      color: #3a6b62;
+      white-space: nowrap;
+    }
+    .legend-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 35% 35%, #fce29c, #e5a428 60%, #c78512);
+      box-shadow: 0 0 6px rgba(229, 164, 40, 0.55);
+      flex-shrink: 0;
+    }
+    /* 하단 시뮬레이션 캔버스 카드 */
+    .sim-card {
+      width: 100%;
+      background-color: #f8fcfb;
+      border: 1.5px solid #dcebe6;
+      border-radius: 16px;
+      box-shadow: 0 8px 30px rgba(38, 84, 73, 0.05);
+      overflow: hidden;
+      position: relative;
+    }
+    .canvas-wrapper {
+      width: 100%;
+      aspect-ratio: 1180 / 485;
+      min-height: 310px;
+      position: relative;
+    }
+    canvas {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+  </style>
+</head>
+<body>
+  <div class="app-container">
+    <!-- 1. 상단 컨트롤 바 카드 -->
+    <div class="control-card">
+      <div class="control-group">
+        <span class="control-label">약물 방출속도</span>
+        <div class="segmented-pill" role="group" aria-label="약물 방출속도 선택">
+          <button type="button" class="speed-btn" data-speed="slow">느림</button>
+          <button type="button" class="speed-btn active" data-speed="medium">중간</button>
+          <button type="button" class="speed-btn" data-speed="fast">빠름</button>
+        </div>
+      </div>
+
+      <button type="button" id="fluorToggleBtn" class="action-btn fluor-btn active" aria-pressed="true">
+        <span id="fluorIcon">✦</span>
+        <span id="fluorLabel">형광 추적 켜짐</span>
+      </button>
+
+      <button type="button" id="pauseToggleBtn" class="action-btn pause-btn" aria-pressed="false">
+        <span id="pauseIcon">❚❚</span>
+        <span id="pauseLabel">일시정지</span>
+      </button>
+
+      <div class="legend-text">
+        <span class="legend-dot" aria-hidden="true"></span>
+        <span>노란 입자 = 방출된 Ex-Phe1</span>
+      </div>
+    </div>
+
+    <!-- 2. 메인 시뮬레이션 캔버스 카드 -->
+    <div class="sim-card">
+      <div class="canvas-wrapper" id="canvasWrapper">
+        <canvas id="simCanvas"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      const canvas = document.getElementById('simCanvas');
+      const ctx = canvas.getContext('2d');
+      const wrapper = document.getElementById('canvasWrapper');
+
+      // 컨트롤 UI 요소 및 시뮬레이션 상태
+      const speedButtons = document.querySelectorAll('.speed-btn');
+      const fluorToggleBtn = document.getElementById('fluorToggleBtn');
+      const fluorLabel = document.getElementById('fluorLabel');
+      const pauseToggleBtn = document.getElementById('pauseToggleBtn');
+      const pauseIcon = document.getElementById('pauseIcon');
+      const pauseLabel = document.getElementById('pauseLabel');
+
+      // 방출 속도별 파라미터 프리셋 (리포좀 형태 유지 및 점진적 서방형 방출 강조)
+      const SPEED_CONFIG = {
+        slow: {
+          degradeRate: 0.00055,
+          releaseProb: 0.0065,
+          releaseOffsetMin: 350,
+          releaseOffsetRange: 210
+        },
+        medium: {
+          degradeRate: 0.0012,
+          releaseProb: 0.014,
+          releaseOffsetMin: 260,
+          releaseOffsetRange: 220
+        },
+        fast: {
+          degradeRate: 0.0024,
+          releaseProb: 0.028,
+          releaseOffsetMin: 160,
+          releaseOffsetRange: 190
+        }
+      };
+
+      const simState = {
+        speedMode: 'medium',
+        fluorescenceOn: true,
+        paused: false
+      };
+
+      // 방출 속도 버튼 이벤트
+      speedButtons.forEach((btn) => {
+        btn.addEventListener('click', () => {
+          speedButtons.forEach((b) => b.classList.remove('active'));
+          btn.classList.add('active');
+          simState.speedMode = btn.dataset.speed;
+
+          // 현재 혈관 내 리포좀들의 방출 시작 기준점도 즉시 반영
+          const cfg = SPEED_CONFIG[simState.speedMode];
+          liposomes.forEach((lipo) => {
+            lipo.releaseStartX = VESSEL.x + cfg.releaseOffsetMin + Math.random() * cfg.releaseOffsetRange;
+          });
+        });
+      });
+
+      // 형광 추적 토글 이벤트
+      fluorToggleBtn.addEventListener('click', () => {
+        simState.fluorescenceOn = !simState.fluorescenceOn;
+        fluorToggleBtn.classList.toggle('active', simState.fluorescenceOn);
+        fluorToggleBtn.setAttribute('aria-pressed', String(simState.fluorescenceOn));
+        fluorLabel.textContent = simState.fluorescenceOn ? '형광 추적 켜짐' : '형광 추적 꺼짐';
+      });
+
+      // 일시정지 / 재생 토글 이벤트
+      pauseToggleBtn.addEventListener('click', () => {
+        simState.paused = !simState.paused;
+        pauseToggleBtn.classList.toggle('paused', simState.paused);
+        pauseToggleBtn.setAttribute('aria-pressed', String(simState.paused));
+        pauseIcon.textContent = simState.paused ? '▶' : '❚❚';
+        pauseLabel.textContent = simState.paused ? '재생' : '일시정지';
+      });
+
+      // 기준 해상도 (첨부 이미지 비율에 맞춘 가상 좌표계)
+      const BASE_W = 1180;
+      const BASE_H = 485;
+
+      let dpr = Math.min(window.devicePixelRatio || 1, 2);
+      let scale = 1;
+
+      function resizeCanvas() {
+        const rect = wrapper.getBoundingClientRect();
+        dpr = Math.min(window.devicePixelRatio || 1, 2);
+        canvas.width = Math.round(rect.width * dpr);
+        canvas.height = Math.round(rect.height * dpr);
+        scale = rect.width / BASE_W;
+      }
+
+      window.addEventListener('resize', resizeCanvas);
+      resizeCanvas();
+
+      // 색상 팔레트 (첨부 이미지 정밀 추출)
+      const COLORS = {
+        bgCard: '#f8fcfb',
+        titleDark: '#233b37',
+        subtitleGray: '#647d78',
+        flowArrow: '#73a59b',
+        vesselBg: '#fceae6',
+        vesselWallLine: '#e8b5ac',
+        endotheliumFill: '#e6bbb3',
+        endotheliumText: '#8c6962',
+        rbcOuter: 'rgba(224, 144, 136, 0.42)',
+        rbcInner: 'rgba(252, 234, 230, 0.65)',
+        flowLine: 'rgba(222, 152, 144, 0.55)',
+        lipoTeal: '#54a599',
+        lipoTealDark: '#3d8b80',
+        lipoGlow: 'rgba(84, 165, 153, 0.34)',
+        lipoGhostRing: 'rgba(232, 198, 138, 0.55)',
+        peptideFill: '#e5a428',
+        peptideHighlight: '#fce29c',
+        peptideStroke: '#c78512',
+        extBoxBg: '#ebf6f2',
+        extBoxBorder: '#9fd0c0',
+        extBoxTitle: '#397367',
+        cellBorder: '#69b39f',
+        cellFill: '#d9eee7',
+        nucleusOuter: 'rgba(130, 184, 169, 0.32)',
+        nucleusInner: 'rgba(116, 173, 157, 0.38)',
+        receptorPurple: '#9b74e8',
+        receptorLight: '#b594f5',
+        receptorLabel: '#7c52d1',
+        gsFill: '#f7e5b2',
+        gsText: '#5e5032',
+        gsLine: '#d69e49',
+        campBg: '#fcf2d6',
+        campTitle: '#4a3d23',
+        campSub: '#6b5b3b',
+        arrestinBg: '#ece4fa',
+        arrestinText: '#6f52a8'
+      };
+
+      // 영역 좌표 상수
+      const VESSEL = {
+        x: 38,
+        y: 112,
+        w: 726,
+        h: 318,
+        r: 42
+      };
+
+      const EXT_BOX = {
+        x: 802,
+        y: 118,
+        w: 344,
+        h: 332,
+        r: 26
+      };
+
+      const CELL = {
+        cx: 988,
+        cy: 304,
+        r: 92
+      };
+
+      // 시뮬레이션 엔티티 배열
+      const liposomes = [];
+      const freePeptides = [];
+      const ghostRings = [];
+      const redBloodCells = [];
+      const flowLines = [];
+
+      // 수용체 및 세포 반응 상태
+      let receptorGlow = 0;
+      let gsPulse = 0;
+      let campPulse = 0;
+      let boundPeptide = null;
+
+      // 유틸 함수: 둥근 사각형 패스
+      function roundRectPath(c, x, y, w, h, r) {
+        const radius = Math.min(r, w / 2, h / 2);
+        c.beginPath();
+        c.moveTo(x + radius, y);
+        c.arcTo(x + w, y, x + w, y + h, radius);
+        c.arcTo(x + w, y + h, x, y + h, radius);
+        c.arcTo(x, y + h, x, y, radius);
+        c.arcTo(x, y, x + w, y, radius);
+        c.closePath();
+      }
+
+      // 배경 적혈구 및 혈류선 초기화
+      function initBloodElements() {
+        for (let i = 0; i < 16; i++) {
+          redBloodCells.push({
+            x: VESSEL.x + 30 + Math.random() * (VESSEL.w - 60),
+            y: VESSEL.y + 42 + Math.random() * (VESSEL.h - 84),
+            rx: 11 + Math.random() * 4,
+            ry: 6 + Math.random() * 2.5,
+            speed: 0.42 + Math.random() * 0.25,
+            angle: (Math.random() - 0.5) * 0.35
+          });
+        }
+        const lineRows = [148, 212, 275, 338, 378];
+        lineRows.forEach((ly, idx) => {
+          for (let j = 0; j < 4; j++) {
+            flowLines.push({
+              x: VESSEL.x + 55 + j * 175 + (idx % 2) * 55,
+              y: ly,
+              len: 28 + (j % 2) * 10,
+              speed: 0.55 + (idx % 3) * 0.08
+            });
+          }
+        });
+      }
+
+      // 리포좀 생성 함수 (내부 카고가 절대 내막 밖으로 벗어나지 않도록 엄격히 제한)
+      function spawnLiposome(initialX) {
+        const radius = 22 + Math.random() * 3;
+        const innerRadius = radius - 4.4;
+        const particleRadius = 3.5;
+        // 입자가 내벽을 절대 넘지 않는 최대 허용 중심 거리
+        const maxOrbit = Math.max(2, innerRadius - particleRadius - 1.5);
+
+        const startX = initialX !== undefined ? initialX : VESSEL.x + 16;
+        const startY = VESSEL.y + 62 + Math.random() * (VESSEL.h - 124);
+        const cfg = SPEED_CONFIG[simState.speedMode];
+
+        // 내부에 탑재된 Ex-Phe1 구슬들 (5~7개)
+        const cargoCount = 5 + Math.floor(Math.random() * 3);
+        const cargo = [];
+        for (let i = 0; i < cargoCount; i++) {
+          const a = (Math.PI * 2 * i) / cargoCount + (Math.random() - 0.5) * 0.35;
+          const dist = Math.min(maxOrbit, (0.28 + Math.random() * 0.68) * maxOrbit);
+          cargo.push({
+            ox: Math.cos(a) * dist,
+            oy: Math.sin(a) * dist,
+            vx: (Math.random() - 0.5) * 0.14,
+            vy: (Math.random() - 0.5) * 0.14,
+            r: particleRadius
+          });
+        }
+
+        return {
+          x: startX,
+          y: startY,
+          vx: 0.65 + Math.random() * 0.25,
+          vy: (Math.random() - 0.5) * 0.14,
+          r: radius,
+          innerRadius: innerRadius,
+          cargo: cargo,
+          // 방출 시작 위치 (② Ex-Phe1 방출 구간 이전에는 절대 조기 방출되지 않음)
+          releaseStartX: Math.max(
+            VESSEL.x + 220,
+            VESSEL.x + cfg.releaseOffsetMin + Math.random() * cfg.releaseOffsetRange
+          ),
+          degradeProgress: 0, // 0 ~ 1 (0일 때는 완전 무손상 리포좀)
+          ghostSpawned: false,
+          dead: false
+        };
+      }
+
+      // 초기 리포좀 배치 (무손상 구역과 방출 구역을 명확히 구분)
+      function initLiposomes() {
+        const presetPositions = [58, 108, 172, 210, 345, 360, 465, 520, 565];
+        presetPositions.forEach((px) => {
+          const lipo = spawnLiposome(px);
+          // 좌측 이동 구간의 리포좀은 완전 무손상 상태 유지
+          if (px < 360) {
+            lipo.degradeProgress = 0;
+            lipo.releaseStartX = Math.max(lipo.releaseStartX, 370);
+          } else {
+            lipo.releaseStartX = px - 20;
+            lipo.degradeProgress = Math.min(0.55, (px - 350) / 340);
+          }
+          liposomes.push(lipo);
+        });
+
+        // 초기 방출 구간(② 이후)의 분해 잔상 고리 및 방출된 Ex-Phe1 입자
+        ghostRings.push({ x: 435, y: 245, r: 24, alpha: 0.45 });
+        ghostRings.push({ x: 752, y: 262, r: 24, alpha: 0.6 });
+
+        const presetPeptides = [
+          { x: 425, y: 260, targetReceptor: false },
+          { x: 468, y: 318, targetReceptor: false },
+          { x: 512, y: 215, targetReceptor: false },
+          { x: 585, y: 295, targetReceptor: false },
+          { x: 645, y: 245, targetReceptor: true },
+          { x: 738, y: 255, targetReceptor: true },
+          { x: 766, y: 232, targetReceptor: true },
+          { x: 788, y: 274, targetReceptor: true },
+          { x: 845, y: 286, targetReceptor: true },
+          { x: 874, y: 283, targetReceptor: true }
+        ];
+
+        presetPeptides.forEach((p) => {
+          freePeptides.push({
+            x: p.x,
+            y: p.y,
+            vx: 0.62 + Math.random() * 0.3,
+            vy: (Math.random() - 0.5) * 0.2,
+            r: 4.0,
+            targetReceptor: p.targetReceptor,
+            alpha: 1,
+            trail: [{ x: p.x, y: p.y }]
+          });
+        });
+      }
+
+      initBloodElements();
+      initLiposomes();
+
+      let lipoSpawnTimer = 0;
+
+      // 수용체 결합 부위 좌표 (세포 왼쪽 외곽 GLP-1R 포켓)
+      function getReceptorBindingPoint() {
+        return { x: 896, y: 278 };
+      }
+
+      // 상태 업데이트
+      function update() {
+        const cfg = SPEED_CONFIG[simState.speedMode];
+
+        // 적혈구 이동
+        redBloodCells.forEach((rbc) => {
+          rbc.x += rbc.speed;
+          if (rbc.x - rbc.rx > VESSEL.x + VESSEL.w - 15) {
+            rbc.x = VESSEL.x + 15;
+            rbc.y = VESSEL.y + 42 + Math.random() * (VESSEL.h - 84);
+          }
+        });
+
+        // 혈류 흐름선 이동
+        flowLines.forEach((fl) => {
+          fl.x += fl.speed;
+          if (fl.x > VESSEL.x + VESSEL.w - 30) {
+            fl.x = VESSEL.x + 25;
+          }
+        });
+
+        // 신규 리포좀 주기적 생성
+        lipoSpawnTimer++;
+        if (lipoSpawnTimer > 78 && liposomes.length < 13) {
+          lipoSpawnTimer = 0;
+          liposomes.push(spawnLiposome());
+        }
+
+        // 리포좀 이동 및 Ex-Phe1 방출
+        for (let i = liposomes.length - 1; i >= 0; i--) {
+          const lipo = liposomes[i];
+          lipo.x += lipo.vx;
+          lipo.y += lipo.vy;
+
+          // 혈관 상하 벽 바운스
+          if (lipo.y - lipo.r < VESSEL.y + 26) {
+            lipo.y = VESSEL.y + 26 + lipo.r;
+            lipo.vy *= -1;
+          } else if (lipo.y + lipo.r > VESSEL.y + VESSEL.h - 26) {
+            lipo.y = VESSEL.y + VESSEL.h - 26 - lipo.r;
+            lipo.vy *= -1;
+          }
+
+          // 내부 카고 미세 브라운 운동 (내막 반경 안쪽으로 엄격히 클램핑)
+          lipo.cargo.forEach((c) => {
+            c.ox += c.vx;
+            c.oy += c.vy;
+            const d = Math.hypot(c.ox, c.oy);
+            const maxAllowedR = Math.max(1.5, lipo.innerRadius - c.r - 1.5);
+            if (d > maxAllowedR) {
+              const nx = c.ox / d;
+              const ny = c.oy / d;
+              c.ox = nx * maxAllowedR;
+              c.oy = ny * maxAllowedR;
+              // 법선 벡터 기준 반사 및 미세 방향 전환
+              const dot = c.vx * nx + c.vy * ny;
+              c.vx = c.vx - 2 * dot * nx + (Math.random() - 0.5) * 0.04;
+              c.vy = c.vy - 2 * dot * ny + (Math.random() - 0.5) * 0.04;
+            }
+          });
+
+          // ② 방출 구간 도달 시에만 막 투과성 증가 및 입자 서방형 방출 허용
+          if (lipo.x >= lipo.releaseStartX) {
+            // 약물을 방출하더라도 리포좀 형태를 오래 유지하도록 최대 투과 진행도 상한(0.68) 설정
+            lipo.degradeProgress = Math.min(0.68, lipo.degradeProgress + cfg.degradeRate);
+
+            // 옅은 노란색 투과/확산 파동 고리 생성 (리포좀이 사라지지 않고 투과됨을 표현)
+            if (!lipo.ghostSpawned && lipo.degradeProgress > 0.32) {
+              lipo.ghostSpawned = true;
+              ghostRings.push({
+                x: lipo.x,
+                y: lipo.y,
+                r: lipo.r + 3,
+                alpha: 0.55
+              });
+            }
+
+            // 막의 미세 투과 통로가 열리면(degradeProgress > 0.14) 내부 약물이 하나씩 천천히 빠져나옴
+            if (lipo.degradeProgress > 0.14 && lipo.cargo.length > 0 && Math.random() < cfg.releaseProb) {
+              const released = lipo.cargo.pop();
+              // 막 경계에서 부드럽고 느린 초기 속도로 스며나오도록 설정
+              const escapeAngle = Math.atan2(released.oy, released.ox);
+              const px = lipo.x + Math.cos(escapeAngle) * (lipo.r + 1.0);
+              const py = lipo.y + Math.sin(escapeAngle) * (lipo.r + 1.0);
+              const willCross = Math.random() < 0.58;
+
+              freePeptides.push({
+                x: px,
+                y: py,
+                vx: lipo.vx + Math.cos(escapeAngle) * 0.18 + 0.12,
+                vy: Math.sin(escapeAngle) * 0.24,
+                r: 4.0,
+                targetReceptor: willCross,
+                alpha: 1,
+                trail: [{ x: px, y: py }]
+              });
+            }
+          }
+
+          // 혈관 우측 경계에 도달할 때까지 리포좀 형태를 유지한 채 이동 후 자연스럽게 소멸
+          if (lipo.x > VESSEL.x + VESSEL.w - 30) {
+            // 끝까지 남은 소량의 약물만 막 경계에서 자연스럽게 방출
+            while (lipo.cargo.length > 0) {
+              const rem = lipo.cargo.pop();
+              const escapeAngle = Math.atan2(rem.oy, rem.ox);
+              const px = lipo.x + Math.cos(escapeAngle) * lipo.r;
+              const py = lipo.y + Math.sin(escapeAngle) * lipo.r;
+              freePeptides.push({
+                x: px,
+                y: py,
+                vx: 0.65 + Math.random() * 0.25,
+                vy: (Math.random() - 0.5) * 0.3,
+                r: 4.0,
+                targetReceptor: Math.random() < 0.6,
+                alpha: 1,
+                trail: [{ x: px, y: py }]
+              });
+            }
+            if (!lipo.ghostSpawned) {
+              ghostRings.push({
+                x: Math.min(lipo.x, VESSEL.x + VESSEL.w - 15),
+                y: lipo.y,
+                r: lipo.r + 2,
+                alpha: 0.55
+              });
+            }
+            liposomes.splice(i, 1);
+          }
+        }
+
+        // 잔상 고리 서서히 소멸
+        for (let i = ghostRings.length - 1; i >= 0; i--) {
+          ghostRings[i].alpha -= 0.0022;
+          if (ghostRings[i].alpha <= 0) {
+            ghostRings.splice(i, 1);
+          }
+        }
+
+        // 방출된 Ex-Phe1 입자 이동 및 GLP-1R 수용체 유도
+        const bindPt = getReceptorBindingPoint();
+        for (let i = freePeptides.length - 1; i >= 0; i--) {
+          const p = freePeptides[i];
+
+          // 형광 추적 궤적 기록 (최대 16프레임)
+          p.trail.push({ x: p.x, y: p.y });
+          if (p.trail.length > 16) {
+            p.trail.shift();
+          }
+
+          if (p.targetReceptor && p.x > VESSEL.x + VESSEL.w - 140) {
+            // 혈관 우측 경계를 넘어 GLP-1R 수용체 포켓으로 유도 확산
+            const dx = bindPt.x - p.x;
+            const dy = bindPt.y - p.y;
+            const dist = Math.hypot(dx, dy);
+
+            if (dist > 6) {
+              p.vx += (dx / dist) * 0.045;
+              p.vy += (dy / dist) * 0.045;
+              const spd = Math.hypot(p.vx, p.vy);
+              if (spd > 1.35) {
+                p.vx = (p.vx / spd) * 1.35;
+                p.vy = (p.vy / spd) * 1.35;
+              }
+              p.x += p.vx;
+              p.y += p.vy;
+            } else {
+              // GLP-1R 수용체 결합 완료! 신호전달 트리거
+              receptorGlow = 1.0;
+              gsPulse = 1.0;
+              campPulse = 1.0;
+              boundPeptide = { x: bindPt.x, y: bindPt.y, timer: 55 };
+              freePeptides.splice(i, 1);
+              continue;
+            }
+          } else {
+            p.x += p.vx;
+            p.y += p.vy;
+
+            // 혈관 내부 입자 벽 반사
+            if (p.x < VESSEL.x + VESSEL.w) {
+              if (p.y < VESSEL.y + 24 || p.y > VESSEL.y + VESSEL.h - 24) {
+                p.vy *= -1;
+              }
+            }
+
+            // 혈관 밖에서 목표가 아닌 입자는 서서히 페이드아웃
+            if (p.x > VESSEL.x + VESSEL.w + 20) {
+              p.alpha -= 0.012;
+            }
+            if (p.x > EXT_BOX.x + EXT_BOX.w - 20 || p.alpha <= 0) {
+              freePeptides.splice(i, 1);
+            }
+          }
+        }
+
+        // 수용체/신호 펄스 감쇠
+        if (receptorGlow > 0) receptorGlow = Math.max(0, receptorGlow - 0.014);
+        if (gsPulse > 0) gsPulse = Math.max(0, gsPulse - 0.012);
+        if (campPulse > 0) campPulse = Math.max(0, campPulse - 0.01);
+        if (boundPeptide) {
+          boundPeptide.timer--;
+          if (boundPeptide.timer <= 0) boundPeptide = null;
+        }
+      }
+
+      // 1. 상단 3단계 프로세스 헤더 그리기
+      function drawTopProcessHeaders() {
+        ctx.save();
+        ctx.textBaseline = 'top';
+
+        const steps = [
+          {
+            x: 84,
+            title: '① 혈류 내 리포좀 이동',
+            sub: '피하투여 후 혈중 도달을 가정'
+          },
+          {
+            x: 472,
+            title: '② Ex-Phe1 방출',
+            sub: '리포좀 막을 통한 방출 · 분해 가능'
+          },
+          {
+            x: 912,
+            title: '③ GLP-1R 결합',
+            sub: '수용체 신호전달 단계'
+          }
+        ];
+
+        steps.forEach((s) => {
+          ctx.fillStyle = COLORS.titleDark;
+          ctx.font = '700 16.5px "Noto Sans KR", sans-serif';
+          ctx.fillText(s.title, s.x, 22);
+
+          ctx.fillStyle = COLORS.subtitleGray;
+          ctx.font = '500 12.5px "Noto Sans KR", sans-serif';
+          ctx.fillText(s.sub, s.x + 2, 46);
+        });
+
+        ctx.restore();
+      }
+
+      // 2. 좌측 혈관 영역 그리기
+      function drawBloodVessel() {
+        ctx.save();
+
+        // 상단 '혈류 방향' 텍스트 및 화살표 라인
+        ctx.fillStyle = COLORS.flowArrow;
+        ctx.font = '700 13.5px "Noto Sans KR", sans-serif';
+        ctx.textAlign = 'center';
+        ctx.fillText('혈류 방향', 385, 89);
+
+        ctx.strokeStyle = COLORS.flowArrow;
+        ctx.lineWidth = 1.8;
+        ctx.beginPath();
+        ctx.moveTo(94, 98);
+        ctx.lineTo(662, 98);
+        ctx.stroke();
+
+        ctx.fillStyle = COLORS.flowArrow;
+        ctx.beginPath();
+        ctx.arc(664, 98, 4.2, 0, Math.PI * 2);
+        ctx.fill();
+
+        // 혈관 본체 (연한 살구/분홍색 둥근 사각형)
+        roundRectPath(ctx, VESSEL.x, VESSEL.y, VESSEL.w, VESSEL.h, VESSEL.r);
+        ctx.fillStyle = COLORS.vesselBg;
+        ctx.fill();
+
+        // 혈관 내부 클리핑
+        ctx.save();
+        roundRectPath(ctx, VESSEL.x, VESSEL.y, VESSEL.w, VESSEL.h, VESSEL.r);
+        ctx.clip();
+
+        // 상단 및 하단 내부 내벽 붉은 라인
+        ctx.fillStyle = COLORS.vesselWallLine;
+        ctx.fillRect(VESSEL.x + 16, VESSEL.y + 15, VESSEL.w - 32, 5.5);
+        ctx.fillRect(VESSEL.x + 16, VESSEL.y + VESSEL.h - 20.5, VESSEL.w - 32, 5.5);
+
+        // 미세 혈류 흐름선
+        ctx.strokeStyle = COLORS.flowLine;
+        ctx.lineWidth = 1.4;
+        ctx.lineCap = 'round';
+        flowLines.forEach((fl) => {
+          ctx.beginPath();
+          ctx.moveTo(fl.x, fl.y);
+          ctx.lineTo(fl.x + fl.len, fl.y);
+          ctx.stroke();
+        });
+
+        // 적혈구 (타원형 도넛 모양)
+        redBloodCells.forEach((rbc) => {
+          ctx.save();
+          ctx.translate(rbc.x, rbc.y);
+          ctx.rotate(rbc.angle);
+
+          ctx.fillStyle = COLORS.rbcOuter;
+          ctx.beginPath();
+          ctx.ellipse(0, 0, rbc.rx, rbc.ry, 0, 0, Math.PI * 2);
+          ctx.fill();
+
+          ctx.fillStyle = COLORS.rbcInner;
+          ctx.beginPath();
+          ctx.ellipse(0, 0, rbc.rx * 0.48, rbc.ry * 0.45, 0, 0, Math.PI * 2);
+          ctx.fill();
+
+          ctx.restore();
+        });
+
+        ctx.restore(); // 혈관 클리핑 해제
+
+        // 하단 바깥쪽 '혈관 내피' 세포 블록 일렬 배치 (13개)
+        const cellCount = 13;
+        const gap = 5;
+        const startX = VESSEL.x + 12;
+        const totalW = VESSEL.w - 24;
+        const cellW = (totalW - gap * (cellCount - 1)) / cellCount;
+        const cellY = VESSEL.y + VESSEL.h + 4;
+        const cellH = 16;
+
+        ctx.fillStyle = COLORS.endotheliumFill;
+        for (let i = 0; i < cellCount; i++) {
+          const cx = startX + i * (cellW + gap);
+          roundRectPath(ctx, cx, cellY, cellW, cellH, 7.5);
+          ctx.fill();
+        }
+
+        // '혈관 내피' 라벨
+        ctx.fillStyle = COLORS.endotheliumText;
+        ctx.font = '700 13.5px "Noto Sans KR", sans-serif';
+        ctx.textAlign = 'center';
+        ctx.fillText('혈관 내피', 654, cellY + 34);
+
+        ctx.restore();
+      }
+
+      // 황금색 Ex-Phe1 구슬 그리기 헬퍼
+      function drawPeptideBead(x, y, r, alpha = 1, trail = null) {
+        ctx.save();
+        ctx.globalAlpha = alpha;
+
+        // 형광 추적 켜짐 시 이동 궤적(Trail) 및 강렬한 형광 후광 렌더링
+        if (simState.fluorescenceOn) {
+          if (trail && trail.length > 1) {
+            for (let t = 1; t < trail.length; t++) {
+              const ratio = t / trail.length;
+              ctx.strokeStyle = `rgba(245, 184, 46, ${ratio * 0.45 * alpha})`;
+              ctx.lineWidth = r * 1.45 * ratio;
+              ctx.lineCap = 'round';
+              ctx.beginPath();
+              ctx.moveTo(trail[t - 1].x, trail[t - 1].y);
+              ctx.lineTo(trail[t].x, trail[t].y);
+              ctx.stroke();
+            }
+          }
+
+          // 형광 발광 외광 (Fluorescent Halo)
+          const haloGrad = ctx.createRadialGradient(x, y, r * 0.4, x, y, r + 6.5);
+          haloGrad.addColorStop(0, 'rgba(255, 214, 92, 0.65)');
+          haloGrad.addColorStop(0.55, 'rgba(229, 164, 40, 0.28)');
+          haloGrad.addColorStop(1, 'rgba(229, 164, 40, 0)');
+          ctx.fillStyle = haloGrad;
+          ctx.beginPath();
+          ctx.arc(x, y, r + 6.5, 0, Math.PI * 2);
+          ctx.fill();
+        }
+
+        // 구슬 본체
+        const grad = ctx.createRadialGradient(x - r * 0.3, y - r * 0.3, r * 0.1, x, y, r);
+        grad.addColorStop(0, COLORS.peptideHighlight);
+        grad.addColorStop(0.55, COLORS.peptideFill);
+        grad.addColorStop(1, COLORS.peptideStroke);
+
+        ctx.fillStyle = grad;
+        ctx.beginPath();
+        ctx.arc(x, y, r, 0, Math.PI * 2);
+        ctx.fill();
+
+        ctx.restore();
+      }
+
+      // 리포좀 및 방출된 Ex-Phe1 입자 그리기
+      function drawLiposomesAndPeptides() {
+        // 1) 분해 잔상 고리 (옅은 노란색 원형 테두리)
+        ghostRings.forEach((gr) => {
+          ctx.save();
+          ctx.strokeStyle = `rgba(232, 198, 138, ${gr.alpha})`;
+          ctx.lineWidth = 1.6;
+          ctx.beginPath();
+          ctx.arc(gr.x, gr.y, gr.r, 0, Math.PI * 2);
+          ctx.stroke();
+          ctx.restore();
+        });
+
+        // 2) 리포좀 (청록색 이중 지질막 + 외광 + 내부 Ex-Phe1)
+        liposomes.forEach((lipo) => {
+          ctx.save();
+          // 약물 방출 중에도 리포좀 이중 지질막 구조가 선명하게 유지되도록 최소 투명도(0.68) 보장
+          const memAlpha = Math.max(0.68, 1 - lipo.degradeProgress * 0.42);
+          ctx.globalAlpha = memAlpha;
+
+          // 형광 추적 켜짐일 때만 청록색 형광 외광(Aura) 표시
+          if (simState.fluorescenceOn) {
+            const glowGrad = ctx.createRadialGradient(
+              lipo.x,
+              lipo.y,
+              lipo.r * 0.65,
+              lipo.x,
+              lipo.y,
+              lipo.r + 13
+            );
+            glowGrad.addColorStop(0, 'rgba(68, 189, 172, 0.42)');
+            glowGrad.addColorStop(1, 'rgba(68, 189, 172, 0)');
+            ctx.fillStyle = glowGrad;
+            ctx.beginPath();
+            ctx.arc(lipo.x, lipo.y, lipo.r + 13, 0, Math.PI * 2);
+            ctx.fill();
+          }
+
+          // 리포좀 내부 반투명 배경
+          ctx.fillStyle = 'rgba(255, 255, 255, 0.72)';
+          ctx.beginPath();
+          ctx.arc(lipo.x, lipo.y, lipo.r - 2, 0, Math.PI * 2);
+          ctx.fill();
+
+          // 외막 (투과성 증가 시에도 원형 형태를 유지하며 미세한 투과 간격만 표현)
+          ctx.strokeStyle = COLORS.lipoTeal;
+          ctx.lineWidth = 2.6;
+          if (lipo.degradeProgress > 0.16) {
+            ctx.setLineDash([7, 2.5 + lipo.degradeProgress * 3.5]);
+          }
+          ctx.beginPath();
+          ctx.arc(lipo.x, lipo.y, lipo.r, 0, Math.PI * 2);
+          ctx.stroke();
+          ctx.setLineDash([]);
+
+          // 지질 이중층 머리 그룹(톱니/점선 느낌의 미세 돌기 유지)
+          const spikes = 20;
+          ctx.fillStyle = COLORS.lipoTealDark;
+          for (let s = 0; s < spikes; s++) {
+            if (lipo.degradeProgress > 0.48 && s % 4 === 0) continue;
+            const a = (Math.PI * 2 * s) / spikes;
+            const sx = lipo.x + Math.cos(a) * (lipo.r + 2.3);
+            const sy = lipo.y + Math.sin(a) * (lipo.r + 2.3);
+            ctx.beginPath();
+            ctx.arc(sx, sy, 1.15, 0, Math.PI * 2);
+            ctx.fill();
+          }
+
+          // 내막 얇은 원
+          ctx.strokeStyle = 'rgba(84, 165, 153, 0.55)';
+          ctx.lineWidth = 1.2;
+          ctx.beginPath();
+          ctx.arc(lipo.x, lipo.y, lipo.innerRadius, 0, Math.PI * 2);
+          ctx.stroke();
+
+          ctx.restore();
+
+          // 내부에 남은 Ex-Phe1 구슬들 (리포좀 내강 영역에 엄격히 클리핑하여 그리기)
+          ctx.save();
+          ctx.beginPath();
+          ctx.arc(lipo.x, lipo.y, Math.max(2, lipo.innerRadius - 0.5), 0, Math.PI * 2);
+          ctx.clip();
+          lipo.cargo.forEach((c) => {
+            drawPeptideBead(lipo.x + c.ox, lipo.y + c.oy, c.r, 1, null);
+          });
+          ctx.restore();
+        });
+
+        // 3) 방출되어 이동 중인 자유 Ex-Phe1 입자들 (형광 궤적 포함)
+        freePeptides.forEach((p) => {
+          drawPeptideBead(p.x, p.y, p.r, p.alpha, p.trail);
+        });
+
+        // 4) 수용체에 결합 중인 입자 하이라이트
+        if (boundPeptide) {
+          drawPeptideBead(boundPeptide.x, boundPeptide.y, 4.4, Math.min(1, boundPeptide.timer / 20), null);
+        }
+      }
+
+      // 3. 우측 혈관 밖 GLP-1R 발현 세포 모형 그리기
+      function drawExtracellularCellModel() {
+        ctx.save();
+
+        // 점선 테두리 민트색 둥근 박스
+        roundRectPath(ctx, EXT_BOX.x, EXT_BOX.y, EXT_BOX.w, EXT_BOX.h, EXT_BOX.r);
+        ctx.fillStyle = COLORS.extBoxBg;
+        ctx.fill();
+
+        ctx.strokeStyle = COLORS.extBoxBorder;
+        ctx.lineWidth = 2.2;
+        ctx.setLineDash([7, 6]);
+        ctx.stroke();
+        ctx.setLineDash([]);
+
+        // 상단 중앙 라벨
+        ctx.fillStyle = COLORS.extBoxTitle;
+        ctx.font = '700 15px "Noto Sans KR", sans-serif';
+        ctx.textAlign = 'center';
+        ctx.fillText('혈관 밖: 접근 가능한 GLP-1R 발현 세포 모형', EXT_BOX.x + EXT_BOX.w / 2, EXT_BOX.y + 42);
+
+        // 원형 세포 모형
+        ctx.beginPath();
+        ctx.arc(CELL.cx, CELL.cy, CELL.r, 0, Math.PI * 2);
+        ctx.fillStyle = COLORS.cellFill;
+        ctx.fill();
+
+        ctx.lineWidth = 9;
+        ctx.strokeStyle = COLORS.cellBorder;
+        ctx.stroke();
+
+        // 세포 내부 우측 하단 반투명 동심원 세포핵
+        const nucX = CELL.cx + 26;
+        const nucY = CELL.cy + 26;
+        ctx.beginPath();
+        ctx.arc(nucX, nucY, 31, 0, Math.PI * 2);
+        ctx.fillStyle = COLORS.nucleusOuter;
+        ctx.fill();
+
+        ctx.beginPath();
+        ctx.arc(nucX, nucY, 17, 0, Math.PI * 2);
+        ctx.fillStyle = COLORS.nucleusInner;
+        ctx.fill();
+
+        // 세포 내부 Gs 단백질 및 신호 연결선 (결합 시 펄스 애니메이션)
+        const gsX = CELL.cx + 12;
+        const gsY = CELL.cy - 34;
+        const gsScale = 1 + gsPulse * 0.14;
+
+        ctx.save();
+        ctx.translate(gsX, gsY);
+        ctx.scale(gsScale, gsScale);
+
+        if (simState.fluorescenceOn && gsPulse > 0.05) {
+          ctx.beginPath();
+          ctx.arc(0, 0, 23 + gsPulse * 7, 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(247, 229, 178, ${gsPulse * 0.65})`;
+          ctx.fill();
+        }
+
+        // Gs 원형 본체
+        ctx.beginPath();
+        ctx.arc(0, 0, 17, 0, Math.PI * 2);
+        ctx.fillStyle = COLORS.gsFill;
+        ctx.fill();
+
+        // Gs 라벨
+        ctx.fillStyle = COLORS.gsText;
+        ctx.font = '700 13px "Noto Sans KR", sans-serif';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText('Gs', 0, 1);
+
+        // Gs 하단 연결선 (어데닐산 고리화효소/cAMP 방향)
+        ctx.strokeStyle = COLORS.gsLine;
+        ctx.lineWidth = 2.4;
+        ctx.lineCap = 'round';
+        ctx.lineJoin = 'round';
+        ctx.beginPath();
+        ctx.moveTo(0, 17);
+        ctx.lineTo(0, 32);
+        ctx.lineTo(-18, 49);
+        ctx.stroke();
+
+        ctx.restore();
+
+        // 세포막 좌측의 보라색 GLP-1R 수용체 단백질 (아령/수용체 형태)
+        ctx.save();
+        const recX = 905;
+        const recY = 282;
+        ctx.translate(recX, recY);
+        ctx.rotate(-0.24); // 세포막 곡률에 맞춘 각도
+
+        // 형광 추적 켜짐 시 결합/상시 형광 링 및 외광 효과
+        if (simState.fluorescenceOn) {
+          const baseGlow = 0.25 + receptorGlow * 0.75;
+          ctx.shadowColor = `rgba(155, 116, 232, ${baseGlow})`;
+          ctx.shadowBlur = 12 + 14 * receptorGlow;
+
+          if (receptorGlow > 0.05) {
+            ctx.strokeStyle = `rgba(245, 184, 46, ${receptorGlow * 0.85})`;
+            ctx.lineWidth = 2.2;
+            ctx.beginPath();
+            ctx.arc(-8, -14, 18 + (1 - receptorGlow) * 14, 0, Math.PI * 2);
+            ctx.stroke();
+          }
+        }
+
+        // 수용체 막관통 몸통
+        roundRectPath(ctx, -8.5, -24, 17, 48, 8);
+        ctx.fillStyle = COLORS.receptorPurple;
+        ctx.fill();
+
+        // 세포외 리간드 결합 도메인 (상단 아령 머리)
+        roundRectPath(ctx, -16, -32, 32, 16, 8);
+        ctx.fillStyle = COLORS.receptorLight;
+        ctx.fill();
+
+        // 세포내 도메인 (하단 아령 머리)
+        roundRectPath(ctx, -14, 16, 28, 15, 7.5);
+        ctx.fillStyle = COLORS.receptorPurple;
+        ctx.fill();
+
+        ctx.restore();
+
+        // 보라색 GLP-1R 텍스트 라벨
+        ctx.fillStyle = COLORS.receptorLabel;
+        ctx.font = '800 14.5px "Noto Sans KR", sans-serif';
+        ctx.textAlign = 'center';
+        ctx.fillText('GLP-1R', 892, 236);
+
+        // 하단 두 개의 배지
+        // 1) 위쪽 배지: cAMP 신호 / 상대적 선호
+        const campW = 224;
+        const campH = 54;
+        const campX = EXT_BOX.x + (EXT_BOX.w - campW) / 2;
+        const campY = 342;
+
+        ctx.save();
+        if (simState.fluorescenceOn && campPulse > 0.02) {
+          ctx.shadowColor = `rgba(229, 164, 40, ${campPulse * 0.55})`;
+          ctx.shadowBlur = 16 * campPulse;
+        }
+        roundRectPath(ctx, campX, campY, campW, campH, 13);
+        ctx.fillStyle = COLORS.campBg;
+        ctx.fill();
+        ctx.restore();
+
+        ctx.fillStyle = COLORS.campTitle;
+        ctx.font = '800 15px "Noto Sans KR", sans-serif';
+        ctx.textAlign = 'center';
+        ctx.fillText('cAMP 신호', campX + campW / 2, campY + 23);
+
+        ctx.fillStyle = COLORS.campSub;
+        ctx.font = '600 12px "Noto Sans KR", sans-serif';
+        ctx.fillText('상대적 선호', campX + campW / 2, campY + 42);
+
+        // 2) 아래쪽 배지: β-arrestin 모집 ↓
+        const arrW = 196;
+        const arrH = 28;
+        const arrX = EXT_BOX.x + (EXT_BOX.w - arrW) / 2;
+        const arrY = 406;
+
+        roundRectPath(ctx, arrX, arrY, arrW, arrH, 14);
+        ctx.fillStyle = COLORS.arrestinBg;
+        ctx.fill();
+
+        ctx.fillStyle = COLORS.arrestinText;
+        ctx.font = '700 12.5px "Noto Sans KR", sans-serif';
+        ctx.textAlign = 'center';
+        ctx.fillText('β-arrestin 모집 ↓', arrX + arrW / 2, arrY + 18.5);
+
+        ctx.restore();
+      }
+
+      // 전체 렌더링 루프
+      function render() {
+        ctx.save();
+        ctx.scale(dpr * scale, dpr * scale);
+
+        // 카드 배경 클리어
+        ctx.fillStyle = COLORS.bgCard;
+        ctx.fillRect(0, 0, BASE_W, BASE_H);
+
+        // 각 시각 레이어 순서대로 그리기
+        drawTopProcessHeaders();
+        drawBloodVessel();
+        drawExtracellularCellModel();
+        drawLiposomesAndPeptides();
+
+        ctx.restore();
+      }
+
+      function loop() {
+        if (!simState.paused) {
+          update();
+        }
+        render();
+        requestAnimationFrame(loop);
+      }
+
+      window.onload = function () {
+        resizeCanvas();
+        loop();
+      };
+    })();
+  </script>
+</body>
+</html>
